@@ -55,14 +55,17 @@ void Task3()
 void exer1()
 
        {
-    for (int n = 2; n <= 1000; n++) {
-            if (n % 2 != 0 && n % 3 != 0 && n % 5 != 0) {
-                cout << n << endl;
-              
-            }
-        
-        
-    }
+    bool isdificlt = false;
+ for (int n = 2; n <= 100; n++) {
+     for (int x = 2; x < n; x++) {
+         isdificlt = false;
+         if (n % x  == 0) {
+             isdificlt = true;
+             break;
+         }
+     }
+     if (isdificlt == false) {
+         cout << "simple " << n << endl;
  }
  
 
