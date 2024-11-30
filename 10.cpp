@@ -1,15 +1,16 @@
-﻿
+
 #include <iostream>
 #include<stdlib.h> 
 using namespace std;
-void sort(int A[], int size, int choice) {
 
+void sort(int A[], int size, int choice) {
+    int x;
     for (int i = 0; i < size - 1; i++) {
         for (int j = i + 1; j < size; j++) {
             if (choice) {
 
                 if (A[i] < A[j]) {
-                    int x = A[i];
+                    x = A[i];
                     A[i] = A[j];
                     A[j] = x;
                 }
@@ -17,7 +18,7 @@ void sort(int A[], int size, int choice) {
             else {
                 
                 if (A[i] > A[j]) {
-                    int x = A[i];
+                    x = A[i];
                     A[i] = A[j];
                     A[j] = x;
                 }
@@ -51,27 +52,34 @@ void exercise1() {
 
 
 
-
-
+//const int size5 = 20;
+//
+//int createRandomArray() {
+//    int A[size5];
+//    for (int i = 0; i < size5; i++) {
+//        A[i] = rand() % 41 - 20;
+//        cout << A[i] << " ";
+//    }
+//    return A;
+//}
 
 void exercise2() {
-
-    const int size = 20;
-    int A[size];
-    
-    for (int i = 0; i < size; i++) {
+    const int size5 = 20;
+    int A[size5];
+    //createRandomArray();
+    for (int i = 0; i < size5; i++) {
         A[i] = rand() % 41 - 20;
         cout << A[i] << " ";
     }
     cout << endl;
     int leftNegative = -1, rightNegative = -1;
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size5; i++) {
         if (A[i] < 0) {
             leftNegative = i;
             break;
         }
     }
-    for (int i = size - 1; i > 0; i--) {
+    for (int i = size5 - 1; i > 0; i--) {
         if (A[i] < 0) {
             rightNegative = i;
             break;
@@ -90,7 +98,7 @@ void exercise2() {
     }
 
     cout << "Result " << endl;
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < size5; ++i) {
         cout << A[i] << " ";
     }
     cout << endl;
@@ -98,7 +106,14 @@ void exercise2() {
 
 
 
-
+void scatter(int array[], int size) {
+    for (int i = size - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        int x = array[i];
+        array[i] = array[j];
+        array[j] = x;
+    }
+}
 
 void exercise3() {
 
@@ -110,13 +125,7 @@ void exercise3() {
         cout << A[i] << " ";
     }
     cout << endl;
-    // 1
-    for (int i = size - 1; i > 0; i--) {
-        int j = rand() % (i + 1);
-        int x = A[i];
-        A[i] = A[j];
-        A[j] = x;
-    }
+    scatter(A, size);
     cout << "1) Result " << endl;
     for (int i = 0; i < size; i++) {
         cout << A[i] << " ";
@@ -163,10 +172,14 @@ void exercise3() {
     }
     cout << endl;
 }
+
+
+
 int main()
 {
-    exercise1();
-    exercise2();
+    //exercise1();
+    //exercise2();
     exercise3();
+
 }
 
