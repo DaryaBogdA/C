@@ -221,3 +221,155 @@ int main() {
 
 */
 
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+
+struct Person {
+	string name;
+	string phone;
+    bool operator<(const Person& other) const { return name < other.name; }
+};
+const int MAX = 100;
+Person abonents[MAX];
+int count_person = 0;
+
+bool add() {
+    cout << "Enter name: ";
+    getline(cin >> ws, abonents[count_person].name);
+    cout << "Enter phone: ";
+    cin >> abonents[count_person].phone;
+    cin.ignore();
+    count_person++;
+    cout << "You add" << endl;
+    return true;
+}
+
+bool delete_person() {
+    string lastName;
+    cout << "Enter name ";
+    getline(cin >> ws, lastName);
+    int index = -1;
+    for (int i = 0; i < count_person; ++i) {
+        if (abonents[i].name == lastName) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) {
+        return false;
+    }
+
+    for (int i = index; i < count_person - 1; ++i) {
+        abonents[i] = abonents[i + 1];
+    }
+    count_person--;
+    cout << "You delete" << endl;
+    return true;
+}
+
+bool modify() {
+    string lastName;
+    cout << "Enter name: ";
+    getline(cin >> ws, lastName);
+    for (int i = 0; i < count_person; ++i) {
+        if (abonents[i].name == lastName) {
+            cout << "Enter new name: ";
+            getline(cin >> ws, abonents[i].name);
+            cout << "Enter new phone: ";
+            cin >> abonents[i].phone;
+            cin.ignore();
+            cout << "You modofy" << endl;
+            return true;
+        }
+    }
+    return false;
+}
+
+
+void search() {
+    string searchTerm;
+    cout << "Enter name or phone ";
+    getline(cin >> ws, searchTerm);
+    for (int i = 0; i < count_person; ++i) {
+        if (abonents[i].name.find(searchTerm) != string::npos ||
+            abonents[i].phone.find(searchTerm) != string::npos) {
+            cout << "--------------------" << endl;
+            cout << "Name: " << abonents[i].name << endl;
+            cout << "Phone: " << abonents[i].phone << endl;
+            cout << "--------------------" << endl;
+        }
+    }
+}
+
+void show_alpvavit() {
+    Person sorted[MAX];
+    for (int i = 0; i < count_person; i++) {
+        sorted[i] = abonents[i];
+    }
+    sort(sorted, sorted + count_person);
+    for (int i = 0; i < count_person; ++i) {
+        cout << "--------------------" << endl;
+        cout << "Name: " << sorted[i].name << endl;
+        cout << "Phone: " << sorted[i].phone << endl;
+        cout << "--------------------" << endl;
+    }
+}
+
+bool save(const string& filename) {
+    ofstream file(filename);
+    if (!file.is_open()) {
+        cerr << "Error" << endl;
+        return false;
+    }
+    for (int i = 0; i < count_person; ++i) {
+        file << abonents[i].name << "\n" << abonents[i].phone << "\n";
+    }
+    file.close();
+    cout << "Yes " << endl;
+    return true;
+}
+
+int main() {
+    int choice;
+    do {
+        cout << "1. Add" << endl;
+        cout << "2. Delete" << endl;
+        cout << "3. Modify" << endl;
+        cout << "4. Search" << endl;
+        cout << "5. Show alphavit" << endl;
+        cout << "6. Save" << endl;
+        cin >> choice;
+        cin.ignore();
+
+        switch (choice) {
+        case 1: 
+            add(); 
+            break;
+        case 2: 
+            delete_person(); 
+            break;
+        case 3: 
+            modify(); 
+            break;
+        case 4: 
+            search(); 
+            break;
+        case 5: 
+            show_alpvavit(); 
+            break;
+        case 6: 
+            save("phonebook.txt"); 
+            break;
+        }
+    } while (choice != 7);
+
+    return 0;
+}
